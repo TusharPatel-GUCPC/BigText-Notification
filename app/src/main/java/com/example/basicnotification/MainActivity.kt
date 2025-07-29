@@ -36,16 +36,23 @@ class MainActivity : AppCompatActivity() {
 
     //Step 1: create notification builder variable
     private fun createNotificationBuilder() {
+        val bigText = "The Android operating system is constantly evolving. In this release, we've added features like improved battery life, enhanced privacy controls, and support for foldable devices. Developers can now take advantage of Jetpack Compose for faster UI development."
+
         builder = NotificationCompat.Builder(this, "CHANNEL_ID")
             .setSmallIcon(R.drawable.ic_launcher_foreground)
             .setContentTitle("New Message")
             .setContentText("You have a new message from Tushar.")
+            .setStyle(
+                NotificationCompat.BigTextStyle()
+                    .bigText(bigText)
+                    .setBigContentTitle("Android 14 - What's New")
+                    .setSummaryText("android-news.com")
+            )
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
     }
 
     //Step 2: create notification channel
     private fun createNotificationChannel() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val name = "Basic Notification Channel"
             val descriptionText = "Used for basic notifications"
             val importance = NotificationManager.IMPORTANCE_DEFAULT
@@ -56,6 +63,5 @@ class MainActivity : AppCompatActivity() {
             val notificationManager: NotificationManager =
                 getSystemService(NOTIFICATION_SERVICE) as NotificationManager
             notificationManager.createNotificationChannel(channel)
-        }
     }
 }
